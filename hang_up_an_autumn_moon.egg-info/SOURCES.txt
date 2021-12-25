@@ -1,0 +1,10 @@
+setup.py
+cli/__init__.py
+cli/main.py
+hang_up_an_autumn_moon.egg-info/PKG-INFO
+hang_up_an_autumn_moon.egg-info/SOURCES.txt
+hang_up_an_autumn_moon.egg-info/dependency_links.txt
+hang_up_an_autumn_moon.egg-info/entry_points.txt
+hang_up_an_autumn_moon.egg-info/requires.txt
+hang_up_an_autumn_moon.egg-info/top_level.txt
+hang_up_an_autumn_moon_over_the_mountain/__init__.py

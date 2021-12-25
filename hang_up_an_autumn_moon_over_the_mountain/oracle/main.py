@@ -1,6 +1,6 @@
 from .assets.texts import cards
 from random import randint, shuffle
-from .random_art.randomart import draw, drunkenwalk
+from .random_art.randomart import draw_cards, drunkenwalk
 
 class Oracle():
     def __init__(self, sparrow_mode=False):
@@ -41,8 +41,9 @@ class Oracle():
 
     def create_digests(self):
         digests = []
-        # for i, card in enumerate(self.cards):
-        art = draw(drunkenwalk(self.cards['substring'].encode()))
+        digests = [drunkenwalk(s['substring'].encode()) for s in self.cards]
+        # art = draw_cards(drunkenwalk(self.cards['substring'].encode()))
+        art = draw_cards(digests)
             # art = f'''\n{art}'''
             # digests.append(art)
         return art

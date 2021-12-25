@@ -42,12 +42,14 @@ TRANSLATION = {
     ord("│"): "|", ord("─"): "-", ord("╴"): "[", ord("╶"): "]",
 }
 
-# draw characters in a box
-def draw(matrix, name, palette=PALETTE):
+def draw_cards(matrices, palette=PALETTE):
     symbol = lambda n: PALETTE[n % len(PALETTE)]
     art = StringIO() 
-    art.write("╭──────────────────╮\n")
-    for line in matrix:
-        art.write("│%s│\n" % "".join((symbol(el) for el in line)))
-    art.write("╰───────~ %s ~──────╯\n" % name)
+    art.write("╭──────────────────╮"*3 + "\n")
+    for idx in range(len(matrices[0])):
+        line = ''
+        for matrix in matrices:
+            line += "│%s│" % "".join((symbol(el) for el in list(matrix[idx])))
+        art.write(line + '\n')
+    art.write("╰───────~ %s ~──────╯"*3 %(1,2,3)  + '\n')
     return art.getvalue()

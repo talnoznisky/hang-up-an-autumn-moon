@@ -16,24 +16,21 @@ def oracle(sparrow_mode):
     o = Oracle(sparrow_mode=sparrow_mode)
 
     digests = o.create_digests()
-    digest_string = "{:<1}{:<1}{:<1}".format(*digests)
-    click.echo(digest_string)
+    click.echo('\n' + digests)
+    
+    terminal_menu = TerminalMenu(['1','2','3'])
+    menu_entry_index = terminal_menu.show()
+    selection = int(menu_entry_index)
 
+    oracle = o.run_oracle(selection)
 
+    response_str = o.format_response(**oracle)
 
-#     terminal_menu = TerminalMenu(['1','2','3'])
-#     menu_entry_index = terminal_menu.show()
-#     selection = int(menu_entry_index)
+    click.echo(response_str)
 
-#     oracle = o.run_oracle(selection)
-
-#     response_str = o.format_response(**oracle)
-
-#     click.echo(response_str)
-
-# @click.command()
-# def credits():
-#     click.echo(Oracle().haiku_credit())
+@cli.command()
+def credits():
+    click.echo(Oracle().haiku_credit())
 
 # if __name__ == '__main__':
 #     oracle()

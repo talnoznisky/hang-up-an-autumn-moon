@@ -1,6 +1,6 @@
 tab_space = '   '
 
-credit = """
+haiku_credit = """
 All haikus by Richard Wright, taken from "This Other World," 
 a compendium of haiku he wrote in sickness before his death.
 """
@@ -68,7 +68,7 @@ cards = [
     },
     {
         'text': f"{tab_space}The chill autumn dusk\nGrows colder as yellow lights\n{tab_space}Come on in skyscrapers",
-        'oracle': ['Leave work', 'Accept dimishment'],
+        'oracle': ['Leave work', 'Accept diminishment'],
         'mode': 'non-sparrow'
     },
     {

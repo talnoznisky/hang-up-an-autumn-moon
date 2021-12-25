@@ -39,14 +39,12 @@ class Oracle():
         return haiku[sub[0]:sub[-1]]
 
 
-    def create_digests(self):
-        digests = []
+    def draw_selection_cards(self):
         digests = [drunkenwalk(s['substring'].encode()) for s in self.cards]
-        # art = draw_cards(drunkenwalk(self.cards['substring'].encode()))
-        art = draw_cards(digests)
-            # art = f'''\n{art}'''
-            # digests.append(art)
-        return art
+        
+        selection_cards = draw_cards(digests)
+        
+        return selection_cards
 
     def pick_oracle(self, sub, haiku):
         mid = len(haiku)/2

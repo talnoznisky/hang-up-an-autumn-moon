@@ -8,7 +8,6 @@ click = "*"
 simple-term-menu = "*"
 numpy = "*"
 setuptools = "*"
-tabulate = "*"
 prettytable = "*"
 
 [dev-packages]

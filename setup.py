@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'console_scripts':[
-            'hang_up_an_autumn_moon=cli.main:cli',
+            'hang-up-an-autumn-moon=cli.main:cli',
         ]
     }        
 )

@@ -1,3 +1,0 @@
-[console_scripts]
-hang-up-an-autumn-moon = cli.main:cli
-

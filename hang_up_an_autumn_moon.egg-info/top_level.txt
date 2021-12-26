@@ -1,3 +1,0 @@
-cli
-hang_up_an_autumn_moon_over_the_mountain
-main

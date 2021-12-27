@@ -1,14 +1,19 @@
 # Hang up an Autumn Moon
+      I almost forgot
+    To hang up an autumn moon
+      Over the mountain.
+      - Richard Wright
+
 `hang-up-an-autumn-moon` is an oracular CLI based on haiku by Richard Wright.
 This project is currently in beta. 
 
 ### Requires
 * Python 3
 
-### Install and execute beta version
+### Getting started
 * `clone` this repo
 * In root folder, run `pip install -e .`
-* run `hang-up-an-autumn-moon --help` for getting starting
+* run `hang-up-an-autumn-moon --help` 
 
 ## Authors
 tal.noznisky@gmail.com

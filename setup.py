@@ -8,6 +8,8 @@ setup(
     py_modules=['main'],
     install_requires=[
         'Click',
+        'simple_term_menu',
+        'prettytable',
     ],
     entry_points={
         'console_scripts':[

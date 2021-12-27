@@ -83,8 +83,7 @@ class Oracle():
 
         oracle_obj = {
             'oracle': oracle,
-            'haiku': haiku,
-            'selection': selection + 1
+            'haiku': haiku
         }
         return oracle_obj
 

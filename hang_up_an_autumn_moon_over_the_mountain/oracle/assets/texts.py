@@ -1,11 +1,19 @@
 tab_space = '   '
 
-haiku_credit = """
+project_credit = """
 All haikus by Richard Wright, taken from "This Other World," 
 a compendium of haiku he wrote in sickness before his death.
+
+The randomart generation code is forked and modified from Anton Semjonov implementation:\n
+https://github.com/ansemjo/randomart
 """
 
 guidebook_text = """
+I almost forgot\\To hang up an autumn moon\\Over the mountain.\n
+- Richard Wright
+
+hang-up-an-autumn moon is an oracular CLI based on the late haiku of Richard Wright
+
 Quick start:
 Run `hang-up-an-autumn-moon oracle` to receive a spread of cards pseudo-randomly
 generated from the haiku. Select a card to recieve your oracle. 

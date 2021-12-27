@@ -7,9 +7,11 @@ class Oracle():
         self.sparrow_mode = sparrow_mode
         self.cards = self._set_cards(cards)
 
+
     # INT FUNCTIONS 
     def _set_sparrow_mode(self, cards):
         return [card for card in cards if card['mode'] == 'sparrow']
+
 
     def _set_cards(self, cards):
         if self.sparrow_mode:
@@ -39,14 +41,7 @@ class Oracle():
         return haiku[sub[0]:sub[-1]]
 
 
-    def draw_selection_cards(self):
-        digests = [drunkenwalk(s['substring'].encode()) for s in self.cards]
-        
-        selection_cards = draw_cards(digests)
-        
-        return selection_cards
-
-    def pick_oracle(self, sub, haiku):
+    def _pick_oracle(self, sub, haiku):
         mid = len(haiku)/2
         if not mid.is_integer():
             if mid >= sub[-1]:
@@ -73,12 +68,21 @@ class Oracle():
                     return False
 
 
+    # EXT FUNCTIONS
+    def draw_selection_cards(self):
+        digests = [drunkenwalk(s['substring'].encode()) for s in self.cards]
+        
+        selection_cards = draw_cards(digests)
+        
+        return selection_cards
+
+
     def run_oracle(self, selection):
         card = self.cards[selection]
         haiku = card['text']
         sub = self._create_substring_range(haiku)
 
-        oracle = self.pick_oracle(sub, haiku)
+        oracle = self._pick_oracle(sub, haiku)
         oracle = card['oracle'][oracle] if type(oracle) == bool else card['oracle'][:]
 
         oracle_obj = {
@@ -86,6 +90,3 @@ class Oracle():
             'haiku': haiku
         }
         return oracle_obj
-
-    def format_response(self, selection, haiku, oracle):
-        return f'\nYour selection: {selection}\n\nHAIKU:\n\n{haiku}\n\n\nORACLE: {oracle}\n'

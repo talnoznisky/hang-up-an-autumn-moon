@@ -9,6 +9,7 @@ simple-term-menu = "*"
 numpy = "*"
 setuptools = "*"
 prettytable = "*"
+fastapi = "*"
 
 [dev-packages]
 

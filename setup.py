@@ -10,6 +10,7 @@ setup(
         'Click',
         'simple_term_menu',
         'prettytable',
+        'numpy'
     ],
     entry_points={
         'console_scripts':[

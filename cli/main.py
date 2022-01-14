@@ -8,7 +8,6 @@ from prettytable import ALL as ALL
 
 
 @click.group()
-@click.option('-s', '--sparrow-mode', is_flag=True, help='only sparrow haikus')
 @click.pass_context
 def cli(ctx, sparrow_mode=False):
     '''
@@ -36,11 +35,12 @@ def cli(ctx, sparrow_mode=False):
 
 @cli.command()
 @click.pass_context
-def oracle(ctx):   
+@click.option('-s', '--sparrow-mode', is_flag=True, help='only sparrow haikus') 
+def oracle(ctx, sparrow_mode):   
     '''
     pick a card and recieve your oracle
     ''' 
-    sparrow_mode = ctx.obj['sparrow_mode']
+    # sparrow_mode = ctx.obj['sparrow_mode']
     o = Oracle(sparrow_mode)
 
     time.sleep(.5)

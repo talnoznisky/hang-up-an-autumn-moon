@@ -21,7 +21,7 @@ class Oracle():
         spread = []
         for _ in range(3):
             idx = randint(0, len(cards)-1)
-            card = cards.pop(idx)
+            card = cards[idx]
             card['substring'] = self._create_digest(card['text'])
             card['idx'] = idx
             spread.append(card)

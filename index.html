@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <head>
     <style>
-        * { white-space: pre; font-family: monospace;}
+        * { 
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 2px;
+        }
+        .header {
+            top: 0;
+            white-space:pre;
+        }
+        .spread {
+            white-space: pre;
+        }
+        .button {
+            padding: 10px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
-    <div id='container'></div>
-    <div class='header'>
-    *   .   *    .  ' .   *   '   *    *  . .   .     
+    <div class='container'>
+        <div class='header'>
+        *   .   *    .  ' .   *   '   *    *  . .   .     
 
-    *   H A N G   U P   A N   A U T U M N   M O O N    * 
+        *   H A N G   U P   A N   A U T U M N   M O O N    * 
 
-        .    * '   .   .  .  .    *  .   '  *   .  *    
-    </div>
-    <div id='image_container'></div>
-    <div class='buttons'>
-        <button class='button'>1</button>
-        <button class='button'>2</button>
-        <button class='button'>3</button>
-    </div>
-    <div id='oracle_container'></div>
+            .    * '   .   .  .  .    *  .   '  *   .  *    
+        </div>
+        <div id='image_container'></div>
+        <div class='buttons'>
+            <button class='button'>1</button>
+            <button class='button'>2</button>
+            <button class='button'>3</button>
+        </div>
+        <div id='oracle_container'></div>
+    </div>    
 </body>
 
 
@@ -32,6 +52,7 @@ const api_url_oracle = 'http://127.0.0.1:8000/v1/oracle'
 function add_images(images){
     const image_container = document.getElementById('image_container')
     const image = document.createElement('div')
+    image.setAttribute('class', 'spread')
     image.innerHTML = images
     image_container.append(image)
 }

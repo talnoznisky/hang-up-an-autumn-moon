@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        * { white-space: pre; font-family: monospace;}
+    </style>
+</head>
+<body>
+    <div id='container'></div>
+    <div class='header'>
+    *   .   *    .  ' .   *   '   *    *  . .   .     
+
+    *   H A N G   U P   A N   A U T U M N   M O O N    * 
+
+        .    * '   .   .  .  .    *  .   '  *   .  *    
+    </div>
+    <div id='image_container'></div>
+    <div class='buttons'>
+        <button class='button'>1</button>
+        <button class='button'>2</button>
+        <button class='button'>3</button>
+    </div>
+    <div id='oracle_container'></div>
+</body>
+
+
+<script>
+
+// const api_url = 'https://cryptic-reef-08867.herokuapp.com/v1/oracle'
+const api_url_spread = 'http://127.0.0.1:8000/v1/spread'
+const api_url_oracle = 'http://127.0.0.1:8000/v1/oracle'
+
+function add_images(images){
+    const image_container = document.getElementById('image_container')
+    const image = document.createElement('div')
+    image.innerHTML = images
+    image_container.append(image)
+}
+
+async function add_oracle(idx){
+    url = api_url_oracle + `?idx=${idx}`
+    console.log(url)
+    let response  =  await fetch(url)
+    let data =  await response.json()
+    haiku = data['haiku']
+    oracle = data['oracle']
+    const oracle_container = document.getElementById('oracle_container')
+    oracle_container.innerHTML = `HAIKU:\n\n ${haiku} <br><br> ORACLE\n\n ${oracle}` 
+}
+
+async function setSpread() {
+    let response  =  await fetch(api_url_spread)
+    let data =  await response.json()
+    buttons = document.getElementsByClassName('button')
+    spread = data['spread']
+    
+    for (let i=0; i < buttons.length; i++){
+        let idx = spread[i]['idx']
+        buttons[i].setAttribute('id', idx)
+        buttons[i].setAttribute('onClick', `add_oracle(${idx})`)
+    }
+    add_images(data['card_images'])
+    return data
+}
+
+spread = setSpread()
+
+console.log(spread)
+</script>
+</html>

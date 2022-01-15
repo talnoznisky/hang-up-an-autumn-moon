@@ -7,7 +7,7 @@ class Oracle():
         self.sparrow_mode = sparrow_mode
         self.cards = cards
         self.spread = self._set_cards(cards)
-
+        self.card_images = self._draw_selection_cards()
 
     # INT FUNCTIONS 
     def _set_sparrow_mode(self, cards):
@@ -20,7 +20,7 @@ class Oracle():
         # shuffle(cards)
         spread = []
         for _ in range(3):
-            idx = randint(0, len(cards))
+            idx = randint(0, len(cards)-1)
             card = cards.pop(idx)
             card['substring'] = self._create_digest(card['text'])
             card['idx'] = idx
@@ -71,19 +71,19 @@ class Oracle():
                 else:
                     return False
 
-
+    def _draw_selection_cards(self):
+            digests = [drunkenwalk(s['substring'].encode()) for s in self.spread]
+            selection_cards = draw_cards(digests)
+            
+            return selection_cards
     # EXT FUNCTIONS
+    
     def draw_selection_cards(self):
-        digests = [drunkenwalk(s['substring'].encode()) for s in self.spread]
+        return self.card_images
         
-        selection_cards = draw_cards(digests)
-        
-        return selection_cards
 
-
-    def run_oracle(self, selection):
-        card_idx = self.spread[selection]['idx']
-        card = self.cards[card_idx]
+    def run_oracle(self, idx):
+        card = self.cards[idx]
         haiku = card['text']
         sub = self._create_substring_range(haiku)
 

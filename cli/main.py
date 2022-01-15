@@ -1,3 +1,4 @@
+from select import select
 import click
 import time
 from hang_up_an_autumn_moon_over_the_mountain.oracle.main import Oracle
@@ -53,9 +54,9 @@ def oracle(ctx, sparrow_mode):
     click.echo('Pick a card:')    
     
     time.sleep(.5)
-    selection_cards = o.draw_selection_cards()
+    spread = o.draw_selection_cards()
     
-    click.echo('\n' + selection_cards)
+    click.echo('\n' + spread)
 
     terminal_menu = TerminalMenu(['1','2','3'])
     menu_entry_index = terminal_menu.show()
@@ -63,7 +64,8 @@ def oracle(ctx, sparrow_mode):
     
     click.echo(f'\nYour selection: {selection + 1}')
     
-    oracle = o.run_oracle(selection)
+    idx = o.spread[selection]['idx']
+    oracle = o.run_oracle(idx)
     
     time.sleep(.5)
     click.echo('\n\nHAIKU:\n\n{haiku}\n\n\nORACLE: {oracle}\n'.format(**oracle))

@@ -15,8 +15,12 @@ app.add_middleware(
 )
 
 # text query endpoints
-@app.get("/v1/oracle")
-def get_oracle(sparrow_mode=False):
+@app.get("/v1/spread")
+def initiate_oracle(sparrow_mode=False):
     o = Oracle(sparrow_mode)
     return o
 
+@app.get("/v1/oracle")
+def get_oracle(idx: int, sparrow_mode=False):
+    o = Oracle(sparrow_mode)
+    return(o.run_oracle(idx))

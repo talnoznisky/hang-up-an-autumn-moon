@@ -5,7 +5,8 @@ from .random_art.randomart import draw_cards, drunkenwalk
 class Oracle():
     def __init__(self, sparrow_mode=False):
         self.sparrow_mode = sparrow_mode
-        self.cards = self._set_cards(cards)
+        self.cards = cards
+        self.spread = self._set_cards(cards)
 
 
     # INT FUNCTIONS 
@@ -16,13 +17,16 @@ class Oracle():
     def _set_cards(self, cards):
         if self.sparrow_mode:
             cards = self._set_sparrow_mode(cards)
-        shuffle(cards)
-        cards = cards[:3]
+        # shuffle(cards)
+        spread = []
+        for _ in range(3):
+            idx = randint(0, len(cards))
+            card = cards.pop(idx)
+            card['substring'] = self._create_digest(card['text'])
+            card['idx'] = idx
+            spread.append(card)
         
-        for i, card in enumerate(cards):
-            cards[i]['substring'] = self._create_digest(card['text'])
-        
-        return cards
+        return spread
 
 
     def _create_substring_range(self, haiku):
@@ -70,7 +74,7 @@ class Oracle():
 
     # EXT FUNCTIONS
     def draw_selection_cards(self):
-        digests = [drunkenwalk(s['substring'].encode()) for s in self.cards]
+        digests = [drunkenwalk(s['substring'].encode()) for s in self.spread]
         
         selection_cards = draw_cards(digests)
         
@@ -78,7 +82,8 @@ class Oracle():
 
 
     def run_oracle(self, selection):
-        card = self.cards[selection]
+        card_idx = self.spread[selection]['idx']
+        card = self.cards[card_idx]
         haiku = card['text']
         sub = self._create_substring_range(haiku)
 

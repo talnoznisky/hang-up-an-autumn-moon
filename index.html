@@ -6,85 +6,163 @@
             margin: 0;
             padding: 0;
         }
+        
+        html, body, .container {height: 100%}
+        
+        .header, .image_container, .selection_zone {white-space: pre}
         .container {
             width: 80%;
-            margin: 2px;
+            margin: 5px;
         }
         .header {
             top: 0;
-            white-space:pre;
-        }
-        .spread {
-            white-space: pre;
+            font-weight: bold;
+            display: inline-flex;
         }
         .button {
             padding: 10px;
             margin: 5px;
         }
+        .buttons {
+            display: flex;
+            width: 100%;
+        }
+        .footer{
+            bottom: 0;
+            padding: 2px;   
+            position: fixed;
+        }
+        
+        /* dropdown styling */
+        .dropbtn {
+            background-color: transparent;
+            border: transparent; 
+            font-size: large;
+            padding: 0;
+            cursor: pointer;
+        }
+        .dropdown {
+            position: relative;
+            top:0;
+            float: right;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid black;
+            z-index: 1;
+            right:0;
+        }
+
+        .dropdown-content a {
+            color:blue;
+            background-color: white;
+            padding: 1em;
+            display: block;
+        }
+        .show {display:block;}
     </style>
 </head>
 <body>
     <div class='container'>
         <div class='header'>
-        *   .   *    .  ' .   *   '   *    *  . .   .     
+            <div>
+    *   .   *    .  ' .   *   '   *    *  . .   .     
 
-        *   H A N G   U P   A N   A U T U M N   M O O N    * 
+*   H A N G   U P   A N   A U T U M N   M O O N    * 
 
-            .    * '   .   .  .  .    *  .   '  *   .  *    
+    .    * '   .   .  .  .    *  .   '  *   .  *        
+            </div>
+            <div class="dropdown">
+                <button onclick="dd()" class="dropbtn">ℹ️</button>
+                <div class="dropdown-content">
+                    <a id="repo" href='./guidebook.html'>guidebook</a>
+                    <hr>
+                    <a id="repo" href='https://github.com/talnoznisky/hang-up-an-autumn-moon'>https://github.com/talnoznisky/hang-up-an-autumn-moon</a>
+                </div>
+            </div>            
         </div>
-        <div id='image_container'></div>
-        <div class='buttons'>
-            <button class='button'>1</button>
-            <button class='button'>2</button>
-            <button class='button'>3</button>
-        </div>
-        <div id='oracle_container'></div>
+        <div class='image_container'></div>
+        <div class='selection_zone'></div>
+        <footer>
+            <div class='footer'>
+                All haiku by <a href='https://en.wikipedia.org/wiki/Richard_Wright_(author)'>Richard Wright</a>
+            </div>
+        </footer>
     </div>    
 </body>
-
-
 <script>
+const api_url_spread = 'https://cryptic-reef-08867.herokuapp.com/v1/spread'
+const api_url_oracle = 'https://cryptic-reef-08867.herokuapp.com/v1/oracle'
+// const api_url_spread = 'http://127.0.0.1:8000/v1/spread'
+// const api_url_oracle = 'http://127.0.0.1:8000/v1/oracle'
 
-// const api_url = 'https://cryptic-reef-08867.herokuapp.com/v1/oracle'
-const api_url_spread = 'http://127.0.0.1:8000/v1/spread'
-const api_url_oracle = 'http://127.0.0.1:8000/v1/oracle'
-
-function add_images(images){
-    const image_container = document.getElementById('image_container')
+function loadImages(images){
+    const image_container = document.getElementsByClassName('image_container')[0]
     const image = document.createElement('div')
     image.setAttribute('class', 'spread')
-    image.innerHTML = images
-    image_container.append(image)
+    image_container.innerHTML = images
 }
 
-async function add_oracle(idx){
+async function loadOracle(idx){
     url = api_url_oracle + `?idx=${idx}`
-    console.log(url)
     let response  =  await fetch(url)
     let data =  await response.json()
     haiku = data['haiku']
     oracle = data['oracle']
-    const oracle_container = document.getElementById('oracle_container')
-    oracle_container.innerHTML = `HAIKU:\n\n ${haiku} <br><br> ORACLE\n\n ${oracle}` 
+    const oracle_container = document.getElementsByClassName('selection_zone')[0]
+    oracle_container.innerHTML = `<div>HAIKU: <br>${haiku}<br><br>ORACLE:<br>${oracle}</div><br>` 
+    reload_button = document.createElement('button')
+    reload_button.innerHTML = 'refresh'
+    reload_button.setAttribute('onclick', 'loadSelection()')
+    oracle_container.append(reload_button)
 }
 
-async function setSpread() {
+async function setSpread(){
     let response  =  await fetch(api_url_spread)
     let data =  await response.json()
-    buttons = document.getElementsByClassName('button')
+    buttons = [...document.getElementsByClassName('button')]
     spread = data['spread']
-    
-    for (let i=0; i < buttons.length; i++){
-        let idx = spread[i]['idx']
-        buttons[i].setAttribute('id', idx)
-        buttons[i].setAttribute('onClick', `add_oracle(${idx})`)
-    }
-    add_images(data['card_images'])
-    return data
+    buttons.forEach(function(button, i){
+        idx = spread[i]['idx']
+        button.setAttribute('onClick', `loadOracle(${idx})`)
+    })
+    loadImages(data['card_images'])
 }
 
-spread = setSpread()
+function loadSelection(){
+    const selection =   `<div>Pick a card:</div>
+                            <div class='buttons'>
+                                <button class='button'>1</button>
+                                <button class='button'>2</button>
+                                <button class='button'>3</button>
+                            </div>`
+    selection_zone  = document.getElementsByClassName('selection_zone')[0]
+    selection_zone.innerHTML=selection
+    setSpread()
+}
 
-console.log(spread)
+init = loadSelection()
+
+function dd() {
+    document.getElementsByClassName("dropdown-content")[0].classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+
 </script>
 </html>

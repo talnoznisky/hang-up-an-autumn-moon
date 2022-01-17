@@ -6,7 +6,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name='hang_up_an_autumn_moon',
-    version='0.1.0',
+    version='0.2.0',
     packages=find_packages(),
     include_package_data=True,
     py_modules=['main'],

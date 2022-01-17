@@ -56,7 +56,11 @@ def oracle(ctx, sparrow_mode):
     time.sleep(.5)
     spread = o.draw_selection_cards()
     
-    click.echo('\n' + spread)
+    spread_table = prettytable.PrettyTable(border=False, header=False)
+    spread_table.add_row([spread[0], spread[1], spread[2]])
+    spread_table.add_row(["1", "2", "3"])
+    
+    click.echo(spread_table)
 
     terminal_menu = TerminalMenu(['1','2','3'])
     menu_entry_index = terminal_menu.show()

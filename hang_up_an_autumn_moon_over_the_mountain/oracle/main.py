@@ -32,8 +32,7 @@ class Oracle():
 
     def _create_substring_range(self, haiku):
         start = randint(0, len(haiku)-2)
-        stop = randint(start+1, len(haiku)-1)
-        
+        stop = randint(start+2, len(haiku)-1)
         substring = list(range(start,stop))
 
         return substring
@@ -43,7 +42,7 @@ class Oracle():
         haiku = haiku.replace('\n', '').replace(' ','').lower()
         sub_range = self._create_substring_range(haiku)
         sub = haiku[sub_range[0]:sub_range[-1]]
-        # digest = hashlib.md5(sub).digest()
+
         return sub
 
 
@@ -74,8 +73,7 @@ class Oracle():
                     return False
 
     def _draw_selection_cards(self):
-        # digest = hashlib.md5(sub).digest()
-        digests = [drunkenwalk(hashlib.blake2b(s['substring'].encode()).digest()) for s in self.spread]
+        digests = [drunkenwalk(hashlib.md5(s['substring'].encode()).digest()) for s in self.spread]
         print(digests)
         selection_cards = draw_cards(digests)
             

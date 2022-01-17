@@ -21,7 +21,7 @@
     }
     .container {
         position: relative;
-        width: 40%;
+        width: 50vw;
         margin-left: 10px;
     }
     .title {
@@ -71,16 +71,23 @@
         padding: 2px;   
         position: absolute;
         width: 100%;
+        /* display: inline-block; */
         display: inline-flex;
     }
     .credit {
+        margin-right: auto;
+        position: relative;
+        display: inline-block;
+    }
+    .switch_name {
+        
         display: inline-block;
     }
     .sparrow_toggle {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        margin: 2px;
+        display: inline-block;
+        position: relative;
+        padding: 2px;
+        margin-left: auto;
     }
     /* dropdown styling */
     .dropdown {
@@ -119,9 +126,17 @@
         }
         .header, .footer {
             width: 98%;
+            margin: 3px;
+        }
+        .image_container{
+            padding: .7vw;
         }
         .card_image {
             font-size: 2.7vw;
+            margin: auto;
+        }
+        .oracle_zone {
+            margin: 1vw;
         }
         .dropdown-content{
             font-size: large;
@@ -153,19 +168,20 @@
                 </div>
             </div>
             </div>
-            
+            <div class='content'>
             <div class='image_container'><div>Pick a card:</div></div>
             <div class='oracle_zone'></div>
             <div class='footer'>
                 <div class='credit'>All haiku by <a href='https://en.wikipedia.org/wiki/Richard_Wright_(author)'>Richard Wright</a></div>
                 <div class='sparrow_toggle'>
-                    Sparrow mode
+                    <div class='switch_name'>Sparrow mode</div>
                     <label class="switch">
                         <input id='sparrow_mode' type="checkbox">
                         <span class="slider"></span>
                     </label>
                 </div>
             </div>
+        </div>
         </div>
 </body>
 <script>
@@ -192,7 +208,7 @@ async function loadOracle(idx){
     reload_button.setAttribute('onclick', 'refresh()')
     
     const oracle_container = document.getElementsByClassName('oracle_zone')[0]
-    oracle_container.innerHTML = `<div>HAIKU: <br>${haiku}<br><br>ORACLE:<br>${oracle}</div><br>` 
+    oracle_container.innerHTML = `<div>HAIKU:<br><br>${haiku}<br><br><br>ORACLE:<br><br>${oracle}</div><br>` 
     oracle_container.append(reload_button)
 }
 

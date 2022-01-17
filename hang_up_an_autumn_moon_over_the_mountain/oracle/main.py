@@ -22,7 +22,7 @@ class Oracle():
         spread = []
         for _ in range(3):
             idx = randint(0, len(cards)-1)
-            card = cards[idx]
+            card = cards[idx].copy()
             card['substring'] = self._create_digest(card['text'])
             card['idx'] = idx
             spread.append(card)
@@ -42,9 +42,9 @@ class Oracle():
     def _create_digest(self, haiku):
         haiku = haiku.replace('\n', '').replace(' ','').lower()
         sub_range = self._create_substring_range(haiku)
-        sub = str(haiku[sub_range[0]:sub_range[-1]]).encode()
-        digest = hashlib.md5(sub).digest()
-        return digest
+        sub = haiku[sub_range[0]:sub_range[-1]]
+        # digest = hashlib.md5(sub).digest()
+        return sub
 
 
     def _pick_oracle(self, sub, haiku):
@@ -74,10 +74,12 @@ class Oracle():
                     return False
 
     def _draw_selection_cards(self):
-            digests = [drunkenwalk(s['substring']) for s in self.spread]
-            selection_cards = draw_cards(digests)
+        # digest = hashlib.md5(sub).digest()
+        digests = [drunkenwalk(hashlib.blake2b(s['substring'].encode()).digest()) for s in self.spread]
+        print(digests)
+        selection_cards = draw_cards(digests)
             
-            return selection_cards
+        return selection_cards
     # EXT FUNCTIONS
     
     def draw_selection_cards(self):
@@ -97,3 +99,6 @@ class Oracle():
             'haiku': haiku
         }
         return oracle_obj
+
+o = Oracle()
+print(o.draw_selection_cards())

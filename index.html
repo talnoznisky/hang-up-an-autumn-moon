@@ -1,74 +1,119 @@
-<!DOCTYPE html>
+<html>
 <head>
-    <style>
-        * { 
-            font-family: monospace;
-            margin: 0;
-            padding: 0;
-        }
-        
-        html, body, .container {height: 100%}
-        
-        .header, .image_container, .selection_zone {white-space: pre}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />    
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+    }
+    html, body, .container {
+        height: 100%;
+    }
+    .container {
+        position: relative;
+        width: 40%;
+        margin-left: 10px;
+        /* padding: 1px; */
+    }
+    .title {
+        white-space: pre-wrap;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .header {
+        width: 100%;
+        display: inline-flex;
+    }
+    .image_container {
+        position: relative;
+        white-space: pre;
+        display: block;
+    }
+    .buttons {
+        display: flex;
+        width: 100%;
+    }
+    .button {
+        padding: 10px;
+        margin: 5px;
+    }
+    .selection_zone {
+        white-space: pre-wrap;
+    }
+    .footer{
+        bottom: 0;
+        padding: 2px;   
+        position: absolute;
+        width: 100%;
+        display: inline-flex;
+    }
+    .credit {
+        display: inline-block;
+    }
+    .sparrow_toggle {
+        position: absolute;
+
+        bottom: 0;
+        right: 0;
+        margin: 2px;
+    }
+    /* dropdown styling */
+    .dropdown {
+        position: absolute;
+        top:0;
+        right: 0
+    }
+    .dropbtn {
+        background-color: transparent;
+        border: transparent; 
+        font-size: large;
+        padding: 0;
+        cursor: pointer;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid black;
+        z-index: 1;
+        font-size: medium;
+        right:0;
+    }
+    .dropdown-content a {
+        color:blue;
+        background-color: white;
+        padding: 1em;
+        display: block;
+    }
+    .show {display:block;}
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
         .container {
-            width: 80%;
-            margin: 5px;
-        }
-        .header {
-            top: 0;
-            font-weight: bold;
-            display: inline-flex;
-        }
-        .button {
-            padding: 10px;
-            margin: 5px;
-        }
-        .buttons {
-            display: flex;
             width: 100%;
+            margin: 2px;
         }
-        .footer{
-            bottom: 0;
-            padding: 2px;   
-            position: fixed;
+        .header, .footer {
+            width: 98%;
         }
-        
-        /* dropdown styling */
-        .dropbtn {
-            background-color: transparent;
-            border: transparent; 
+        .dropdown-content{
             font-size: large;
-            padding: 0;
-            cursor: pointer;
         }
-        .dropdown {
-            position: relative;
-            top:0;
-            float: right;
+        .image_container {
+            font-size: 2.75vw;
         }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            border: 1px solid black;
-            z-index: 1;
-            right:0;
+        .title {
+            font-size: medium;
         }
-
-        .dropdown-content a {
-            color:blue;
-            background-color: white;
-            padding: 1em;
-            display: block;
-        }
-        .show {display:block;}
-    </style>
+    }          
+</style>
 </head>
 <body>
     <div class='container'>
         <div class='header'>
-            <div>
+            <div class='title'>
     *   .   *    .  ' .   *   '   *    *  . .   .     
 
 *   H A N G   U P   A N   A U T U M N   M O O N    * 
@@ -78,32 +123,39 @@
             <div class="dropdown">
                 <button onclick="dd()" class="dropbtn">ℹ️</button>
                 <div class="dropdown-content">
-                    <a id="repo" href='./guidebook.html'>guidebook</a>
+                    <a href='./guidebook.html'>guidebook</a>
                     <hr>
-                    <a id="repo" href='https://github.com/talnoznisky/hang-up-an-autumn-moon'>https://github.com/talnoznisky/hang-up-an-autumn-moon</a>
+                    <a href='https://github.com/talnoznisky/hang-up-an-autumn-moon'>https://github.com/talnoznisky/hang-up-an-autumn-moon</a>
+                    <hr>
+                    <a href='https://pypi.org/project/hang-up-an-autumn-moon/'>https://pypi.org/project/hang-up-an-autumn-moon</a>
                 </div>
-            </div>            
-        </div>
-        <div class='image_container'></div>
-        <div class='selection_zone'></div>
-        <footer>
-            <div class='footer'>
-                All haiku by <a href='https://en.wikipedia.org/wiki/Richard_Wright_(author)'>Richard Wright</a>
             </div>
-        </footer>
-    </div>    
+            </div>
+            <div class='image_container'></div>
+            <div class='selection_zone'></div> 
+            <div class='footer'>
+                <div class='credit'>All haiku by <a href='https://en.wikipedia.org/wiki/Richard_Wright_(author)'>Richard Wright</a></div>
+                <div class='sparrow_toggle'>
+                    Sparrow mode
+                    <label class="switch">
+                        <input id='sparrow_mode' type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
 </body>
 <script>
 const api_url_spread = 'https://cryptic-reef-08867.herokuapp.com/v1/spread'
 const api_url_oracle = 'https://cryptic-reef-08867.herokuapp.com/v1/oracle'
-// const api_url_spread = 'http://127.0.0.1:8000/v1/spread'
-// const api_url_oracle = 'http://127.0.0.1:8000/v1/oracle'
 
 function loadImages(images){
     const image_container = document.getElementsByClassName('image_container')[0]
     const image = document.createElement('div')
     image.setAttribute('class', 'spread')
     image_container.innerHTML = images
+    var isChecked = document.getElementById('sparrow_mode').checked
+    console.log(isChecked)
 }
 
 async function loadOracle(idx){
@@ -121,7 +173,9 @@ async function loadOracle(idx){
 }
 
 async function setSpread(){
-    let response  =  await fetch(api_url_spread)
+    sparrow_mode = document.getElementById('sparrow_mode').checked
+    url = api_url_spread + `?sparrow_mode=${sparrow_mode}`
+    let response  =  await fetch(url)
     let data =  await response.json()
     buttons = [...document.getElementsByClassName('button')]
     spread = data['spread']
@@ -146,6 +200,7 @@ function loadSelection(){
 
 init = loadSelection()
 
+// dropdown functionality
 function dd() {
     document.getElementsByClassName("dropdown-content")[0].classList.toggle("show");
 }
@@ -162,7 +217,5 @@ window.onclick = function(event) {
         }
     }
 }
-
-
 </script>
 </html>

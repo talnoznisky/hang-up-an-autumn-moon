@@ -1,3 +1,4 @@
+import hashlib
 from .assets.texts import cards
 from random import randint, shuffle
 from .random_art.randomart import draw_cards, drunkenwalk
@@ -40,9 +41,10 @@ class Oracle():
 
     def _create_digest(self, haiku):
         haiku = haiku.replace('\n', '').replace(' ','').lower()
-        sub = self._create_substring_range(haiku)
-        
-        return haiku[sub[0]:sub[-1]]
+        sub_range = self._create_substring_range(haiku)
+        sub = str(haiku[sub_range[0]:sub_range[-1]]).encode()
+        digest = hashlib.md5(sub).digest()
+        return digest
 
 
     def _pick_oracle(self, sub, haiku):
@@ -72,7 +74,7 @@ class Oracle():
                     return False
 
     def _draw_selection_cards(self):
-            digests = [drunkenwalk(s['substring'].encode()) for s in self.spread]
+            digests = [drunkenwalk(s['substring']) for s in self.spread]
             selection_cards = draw_cards(digests)
             
             return selection_cards

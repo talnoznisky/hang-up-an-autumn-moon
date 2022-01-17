@@ -42,6 +42,16 @@ TRANSLATION = {
     ord("│"): "|", ord("─"): "-", ord("╴"): "[", ord("╶"): "]",
 }
 
+def draw_card(matrix, palette=PALETTE):
+    symbol = lambda n: PALETTE[n % len(PALETTE)]
+    art = StringIO() 
+    art.write("╭──────────────────╮" + "\n")
+    for line in matrix:
+        art.write("│%s│\n" % "".join((symbol(el) for el in line)))
+    art.write("╰──────────────────╯" + '\n')
+    return art.getvalue()
+
+# deprecated but here for reference:
 def draw_cards(matrices, palette=PALETTE):
     symbol = lambda n: PALETTE[n % len(PALETTE)]
     art = StringIO() 

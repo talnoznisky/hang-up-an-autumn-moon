@@ -1,7 +1,7 @@
 import hashlib
 from .assets.texts import cards
 from random import randint, shuffle
-from .random_art.randomart import draw_cards, drunkenwalk
+from .random_art.randomart import draw_card, drunkenwalk
 
 class Oracle():
     def __init__(self, sparrow_mode=False):
@@ -32,7 +32,7 @@ class Oracle():
 
     def _create_substring_range(self, haiku):
         start = randint(0, len(haiku)-2)
-        stop = randint(start+2, len(haiku)-1)
+        stop = randint(start+1, len(haiku)-1)
         substring = list(range(start,stop))
 
         return substring
@@ -74,10 +74,19 @@ class Oracle():
 
     def _draw_selection_cards(self):
         digests = [drunkenwalk(hashlib.md5(s['substring'].encode()).digest()) for s in self.spread]
-        print(digests)
-        selection_cards = draw_cards(digests)
+        selection_cards = [draw_card(digest, idx) for idx, digest in enumerate(digests)]
             
         return selection_cards
+
+    # deprecated but here for reference
+    # def _draw_selection_cards(self):
+    #     digests = [drunkenwalk(hashlib.md5(s['substring'].encode()).digest()) for s in self.spread]
+    #     print(digests)
+    #     selection_cards = draw_cards(digests)
+
+    #     return selection_cards
+    
+
     # EXT FUNCTIONS
     
     def draw_selection_cards(self):
@@ -97,6 +106,3 @@ class Oracle():
             'haiku': haiku
         }
         return oracle_obj
-
-o = Oracle()
-print(o.draw_selection_cards())

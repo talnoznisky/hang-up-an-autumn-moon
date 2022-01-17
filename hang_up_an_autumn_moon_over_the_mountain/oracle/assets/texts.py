@@ -29,12 +29,12 @@ full haiku and a judgment to help frame the querent's insight into the haiku.
 
 Source material:
 The oracle is based on a corpus of haiku by Richard Wright. Each haiku is attributed
-with a mode, either sparrow or hyperdrive, and a pair of judgments. The modes are 
+with a mode, either sparrow or intensifier, and a pair of judgments. The modes are 
 similar to the major and minor arcana of the Tarot. Sparrow cards represent 
-higher-order considerations and are actually all about sparrows. Hyperdrive cards 
+higher-order considerations and are actually all about sparrows. intensifier cards 
 speak to day-by-day concerns and their haikus tend to describe the intensification
 of one natural element by another. The judgments also vary by mode: sparrow cards
-offer single subjective nouns for framing the haiku; hyperdrive cards offer very
+offer single subjective nouns for framing the haiku; intensifier cards offer very
 brief imperatives to help the querent ideate a course of action.
 """
 
@@ -87,67 +87,67 @@ cards = [
     {
         'text': f"{tab_space}I slept so long and sound\nBut I did not know why until\n{tab_space}I saw the snow outside.",
         'oracle': ['Plan something', 'Rest first'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}Over spring mountains\nA star ends the paragraph\n{tab_space}Of a thunderstorm.",
         'oracle': ['Make peace', 'Measure change'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}From a tenement\nThe blue jazz of a trumpet\n{tab_space}Weaving autumn mists.",
         'oracle': ['Live seasonally', 'Combine sensitivities'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}The chill autumn dusk\nGrows colder as yellow lights\n{tab_space}Come on in skyscrapers",
         'oracle': ['Leave work', 'Accept diminishment'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}The ocean's soft sound\nLifts the toll of a far bell\n{tab_space}To the half-seen stars.",
         'oracle': ['Contain excitement', 'Gaze widely'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}A cathedral bell\nDimming the river water\n{tab_space}In the autumn dusk.",
         'oracle': ['Reappraise constants', 'Leave soon'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}A layer of snow\nIs pulling the mountains nearer\n{tab_space}Making them smaller.",
         'oracle': ['Tighten boundaries', 'Lead intimacy'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}One caw of a crow\nTints all of the fallen leaves\n{tab_space}A deeper yellow.",
         'oracle': ['Dress different', 'Look back'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}The summer rainstorm \nDrenches chickens in the field\n{tab_space}Making them smaller.",
         'oracle': ['Absorb influences', 'Accept less'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}Departing wild geese\nAre fanning the moon brighter\n{tab_space}With their tireless wings.",
         'oracle': ['Invent holidays', 'Never quit'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}An empty seashore:\nTaking a long summer with it,\n{tab_space}A departing train.",
         'oracle': ['Leave alone', 'Create attachments'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}The big light in the fog\nWas but a little lantern\n{tab_space}When we came to it.",
         'oracle': ['Confront honesty', 'Characterize spaces'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     },
     {
         'text': f"{tab_space}I am positive\nThat this is the same spring wind\n{tab_space}That I felt yesterday.",
         'oracle': ['Doubt hype', 'Recognize renewals'],
-        'mode': 'hyperdrive'
+        'mode': 'intensifier'
     }
 ]
     

@@ -53,10 +53,10 @@ full haiku and a judgment to help frame the querent's insight into the haiku.
 
 Source material:
 The oracle is based on a corpus of haiku by Richard Wright. Each haiku is attributed
-with a mode, either sparrow or hyperdrive, and a pair of judgments. The modes are 
+with a mode, either sparrow or intensifier, and a pair of judgments. The modes are 
 similar to the major and minor arcana of the Tarot. Sparrow cards represent 
-higher-order considerations and are actually all about sparrows. Hyperdrive cards 
+higher-order considerations and are actually all about sparrows. Intensifier cards 
 speak to day-by-day concerns and their haikus tend to describe the intensification
 of one natural element by another. The judgments also vary by mode: sparrow cards
-offer single subjective nouns for framing the haiku; hyperdrive cards offer very
+offer single subjective nouns for framing the haiku; intensifier cards offer very
 brief imperatives to help the querent ideate a course of action.

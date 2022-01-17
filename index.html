@@ -23,7 +23,6 @@
         position: relative;
         width: 40%;
         margin-left: 10px;
-        /* padding: 1px; */
     }
     .title {
         white-space: pre-wrap;
@@ -37,7 +36,24 @@
     .image_container {
         position: relative;
         white-space: pre;
-        display: block;
+        display: inline-block;
+        width: 100%;
+    }
+    .card_container {
+        position: relative;
+        width: 100%;
+    }
+    .card_image {
+        position: relative;
+        display: inline-flex;
+        background-color: white;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+    }
+    .card_image:checked {
+        background-color: aqua;
     }
     .buttons {
         display: flex;
@@ -47,7 +63,7 @@
         padding: 10px;
         margin: 5px;
     }
-    .selection_zone {
+    .oracle_zone {
         white-space: pre-wrap;
     }
     .footer{
@@ -62,7 +78,6 @@
     }
     .sparrow_toggle {
         position: absolute;
-
         bottom: 0;
         right: 0;
         margin: 2px;
@@ -105,11 +120,11 @@
         .header, .footer {
             width: 98%;
         }
+        .card_image {
+            font-size: 2.7vw;
+        }
         .dropdown-content{
             font-size: large;
-        }
-        .image_container {
-            font-size: 2.75vw;
         }
         .title {
             font-size: medium;
@@ -138,8 +153,9 @@
                 </div>
             </div>
             </div>
-            <div class='image_container'></div>
-            <div class='selection_zone'></div> 
+            
+            <div class='image_container'><div>Pick a card:</div></div>
+            <div class='oracle_zone'></div>
             <div class='footer'>
                 <div class='credit'>All haiku by <a href='https://en.wikipedia.org/wiki/Richard_Wright_(author)'>Richard Wright</a></div>
                 <div class='sparrow_toggle'>
@@ -153,59 +169,72 @@
         </div>
 </body>
 <script>
-const api_url_spread = 'https://cryptic-reef-08867.herokuapp.com/v1/spread'
-const api_url_oracle = 'https://cryptic-reef-08867.herokuapp.com/v1/oracle'
-
-function loadImages(images){
-    const image_container = document.getElementsByClassName('image_container')[0]
-    const image = document.createElement('div')
-    image.setAttribute('class', 'spread')
-    image_container.innerHTML = images
-    var isChecked = document.getElementById('sparrow_mode').checked
-    console.log(isChecked)
-}
+// const api_url_spread = 'https://cryptic-reef-08867.herokuapp.com/v1/spread'
+// const api_url_oracle = 'https://cryptic-reef-08867.herokuapp.com/v1/oracle'
+const api_url_spread = 'http://127.0.0.1:8000/v1/spread'
+const api_url_oracle = 'http://127.0.0.1:8000/v1/oracle'
 
 async function loadOracle(idx){
     url = api_url_oracle + `?idx=${idx}`
     let response  =  await fetch(url)
     let data =  await response.json()
+    
+    card_buttons = [...document.getElementsByClassName('card_image')]
+    card_buttons.forEach(button =>{
+        console.log(button)
+        if(button != document.activeElement){
+            button.disabled = true
+        }
+        
+    })
+
     haiku = data['haiku']
     oracle = data['oracle']
-    const oracle_container = document.getElementsByClassName('selection_zone')[0]
-    oracle_container.innerHTML = `<div>HAIKU: <br>${haiku}<br><br>ORACLE:<br>${oracle}</div><br>` 
+    
     reload_button = document.createElement('button')
     reload_button.innerHTML = 'refresh'
-    reload_button.setAttribute('onclick', 'loadSelection()')
+    reload_button.setAttribute('onclick', 'refresh()')
+    
+    const oracle_container = document.getElementsByClassName('oracle_zone')[0]
+    oracle_container.innerHTML = `<div>HAIKU: <br>${haiku}<br><br>ORACLE:<br>${oracle}</div><br>` 
     oracle_container.append(reload_button)
 }
 
 async function setSpread(){
-    sparrow_mode = document.getElementById('sparrow_mode').checked
+    sparrow_mode = document.getElementById('sparrow_mode').checked ? 1 : 0
     url = api_url_spread + `?sparrow_mode=${sparrow_mode}`
+    
     let response  =  await fetch(url)
     let data =  await response.json()
-    buttons = [...document.getElementsByClassName('button')]
+
     spread = data['spread']
-    buttons.forEach(function(button, i){
+    images = [...data['card_images']]
+
+    const image_container = document.getElementsByClassName('image_container')[0]
+    const card_container = document.createElement('div')
+    card_container.setAttribute('class', 'card_container')
+
+    images.forEach(function(image, i){
+        const card = document.createElement('button')
         idx = spread[i]['idx']
-        button.setAttribute('onClick', `loadOracle(${idx})`)
+        card.setAttribute('class', 'card_image')
+        card.setAttribute('onClick', `loadOracle(${idx})`)
+        card.innerText = image
+        card_container.append(card)
     })
-    loadImages(data['card_images'])
+    image_container.append(card_container)
 }
 
-function loadSelection(){
-    const selection =   `<div>Pick a card:</div>
-                            <div class='buttons'>
-                                <button class='button'>1</button>
-                                <button class='button'>2</button>
-                                <button class='button'>3</button>
-                            </div>`
-    selection_zone  = document.getElementsByClassName('selection_zone')[0]
-    selection_zone.innerHTML=selection
+function refresh(){
+    card_container = document.getElementsByClassName('card_container')[0]
+    card_container.parentNode.removeChild(card_container)
+    oracle_zone = document.getElementsByClassName('oracle_zone')[0]
+    oracle_zone.innerHTML = ''
     setSpread()
+
 }
 
-init = loadSelection()
+init = setSpread()
 
 // dropdown functionality
 function dd() {

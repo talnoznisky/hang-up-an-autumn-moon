@@ -60,22 +60,10 @@
         border-style: 1px solid;   
         border-radius: 2px;
     }   
-    /* button:disabled,
-    button[disabled]{
-    border-color: #999999;
-    color: #999999;
-     */
-    /* background-color: #cccccc; */
-    /* color: #666666; */
-    /* } */
-
     .card_selection {
         color: rgb(37, 35, 35);;
         border-color: goldenrod;
     }
-    /* .deselected {
-        border-color: gray;
-    } */
     .buttons {
         display: flex;
         width: 100%;
@@ -223,10 +211,8 @@ async function loadOracle(idx){
     
     card_buttons = [...document.getElementsByClassName('card_image')]
     card_buttons.forEach(button =>{
-            // button.disabled = true
             if (![...button.classList].includes('card_selection')){
                 button.disabled = true
-                // button.classList.add('deselected')
             }
             console.log([...button.classList])
     })

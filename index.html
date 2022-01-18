@@ -54,15 +54,28 @@
         position: relative;
         display: inline-flex;
         background-color: white;
-        border: none;
-        padding: 0;
-        margin: 0;
+        padding: 1;
+        margin-right: 3;
         cursor: pointer;
-        
-    }
+        border-style: 1px solid;   
+        border-radius: 2px;
+    }   
+    /* button:disabled,
+    button[disabled]{
+    border-color: #999999;
+    color: #999999;
+     */
+    /* background-color: #cccccc; */
+    /* color: #666666; */
+    /* } */
+
     .card_selection {
-        color: black;
+        color: rgb(37, 35, 35);;
+        border-color: goldenrod;
     }
+    /* .deselected {
+        border-color: gray;
+    } */
     .buttons {
         display: flex;
         width: 100%;
@@ -75,6 +88,9 @@
         white-space: pre-wrap;
         font-size: small;
     }
+    .refresh {
+        padding: 2px;
+    }
     .footer{
         bottom: 0;
         padding: 2px;   
@@ -82,6 +98,7 @@
         width: 100%;
         /* display: inline-block; */
         display: inline-flex;
+        font-size: small;
     }
     .credit {
         margin-right: auto;
@@ -89,7 +106,6 @@
         display: inline-block;
     }
     .switch_name {
-        
         display: inline-block;
     }
     .sparrow_toggle {
@@ -133,26 +149,26 @@
             width: 100%;
             margin: 2px;
         }
+        .title{
+            font-size: x-small;
+        }
         .header, .footer {
             width: 98%;
             margin: 3px;
-            font-size: small;
+            font-size: smaller;
         }
         .image_container{
             padding: .7vw;
         }
         .card_image {
             font-size: 2.7vw;
-            margin: auto;
+            margin: .8vw;
         }
         .oracle_zone {
             margin: 1vw;
         }
         .dropdown-content{
             font-size: medium;
-        }
-        .title {
-            font-size: small;
         }
     }          
 </style>
@@ -207,7 +223,12 @@ async function loadOracle(idx){
     
     card_buttons = [...document.getElementsByClassName('card_image')]
     card_buttons.forEach(button =>{
-            button.disabled = true
+            // button.disabled = true
+            if (![...button.classList].includes('card_selection')){
+                button.disabled = true
+                // button.classList.add('deselected')
+            }
+            console.log([...button.classList])
     })
 
     haiku = data['haiku']
@@ -216,6 +237,7 @@ async function loadOracle(idx){
     reload_button = document.createElement('button')
     reload_button.innerHTML = 'refresh'
     reload_button.setAttribute('onclick', 'refresh()')
+    reload_button.setAttribute('class', 'refresh')
     
     const oracle_container = document.getElementsByClassName('oracle_zone')[0]
     oracle_container.innerHTML = `<div>HAIKU:<br><br>${haiku}<br><br><br>ORACLE:<br><br>${oracle}</div><br>` 

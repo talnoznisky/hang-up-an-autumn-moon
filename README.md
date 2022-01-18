@@ -8,7 +8,9 @@ Over the mountain.
 ```
 
 `hang-up-an-autumn-moon` is an oracular CLI based on haiku by Richard Wright.
-This project is currently in beta. 
+This project is currently beta-ish. 
+
+Web version here: [https://hangupanautumnmoon.com/](https://hangupanautumnmoon.com/)
 
 ### Requires
 * Python 3

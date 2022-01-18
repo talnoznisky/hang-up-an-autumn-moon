@@ -56,7 +56,7 @@ def oracle(ctx, sparrow_mode):
     time.sleep(.5)
     spread = o.draw_selection_cards()
     
-    spread_table = prettytable.PrettyTable(border=False, header=False)
+    spread_table = prettytable.PrettyTable(header=False)
     spread_table.add_row([spread[0], spread[1], spread[2]])
     spread_table.add_row(["1", "2", "3"])
     
@@ -72,7 +72,7 @@ def oracle(ctx, sparrow_mode):
     oracle = o.run_oracle(idx)
     
     time.sleep(.5)
-    click.echo('\n\nHAIKU:\n\n{haiku}\n\n\nORACLE: {oracle}\n'.format(**oracle))
+    click.echo('\n\nHAIKU:\n\n{haiku}\n\n\nORACLE:\n\n{oracle}\n'.format(**oracle))
 
 @cli.command()
 def credits():

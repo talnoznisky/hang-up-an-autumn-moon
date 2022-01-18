@@ -45,21 +45,19 @@ TRANSLATION = {
 def draw_card(matrix, palette=PALETTE):
     symbol = lambda n: PALETTE[n % len(PALETTE)]
     art = StringIO() 
-    art.write("╭──────────────────╮" + "\n")
     for line in matrix:
-        art.write("│%s│\n" % "".join((symbol(el) for el in line)))
-    art.write("╰──────────────────╯" + '\n')
+        art.write("%s\n" % "".join((symbol(el) for el in line)))
     return art.getvalue()
 
 # deprecated but here for reference:
-def draw_cards(matrices, palette=PALETTE):
-    symbol = lambda n: PALETTE[n % len(PALETTE)]
-    art = StringIO() 
-    art.write("╭──────────────────╮"*3 + "\n")
-    for idx in range(len(matrices[0])):
-        line = ''
-        for matrix in matrices:
-            line += "│%s│" % "".join((symbol(el) for el in list(matrix[idx])))
-        art.write(line + '\n')
-    art.write("╰───────~ %s ~──────╯"*3 %(1,2,3)  + '\n')
-    return art.getvalue()
+# def draw_cards(matrices, palette=PALETTE):
+#     symbol = lambda n: PALETTE[n % len(PALETTE)]
+#     art = StringIO() 
+#     art.write("╭──────────────────╮"*3 + "\n")
+#     for idx in range(len(matrices[0])):
+#         line = ''
+#         for matrix in matrices:
+#             line += "│%s│" % "".join((symbol(el) for el in list(matrix[idx])))
+#         art.write(line + '\n')
+#     art.write("╰───────~ %s ~──────╯"*3 %(1,2,3)  + '\n')
+#     return art.getvalue()
